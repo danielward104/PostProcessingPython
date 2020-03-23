@@ -3,8 +3,8 @@ import sys
 import os
 print(' ')
 # Counting number of files in directory.
-files, other = os.walk(".",topdown=True)
-file_count = len([f for f in files[2] if f[:20] == "plume_v1_production0"])
+files = os.listdir(".")
+file_count = len([f for f in files if f[:20] == "plume_v1_production0"])
 print('Number of files is ',file_count,'.')
 # Number of files to skip each simulation.
 jump = 500
@@ -14,11 +14,11 @@ to_calculate = int(round(float(file_count)/float(jump),0))
 print('Performing ',to_calculate,' calculations.')
 
 sys.path.insert(1,'/home/home01/scdrw/Python/scripts')
-#import compute_outline as co
-import make_videos as mv
+import compute_outline as co
+#import make_videos as mv
 
 # Chooses which postprocessing script to run.
-switch = 2
+switch = 1
 
 def umbrellaOutline():
         co.umbrellaOutline('plume_v1_production',
