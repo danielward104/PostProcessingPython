@@ -13,7 +13,11 @@ print('Skip every ',jump,' files.')
 to_calculate = int(round(float(file_count)/float(jump),0))
 print('Performing ',to_calculate,' calculations.')
 
-sys.path.insert(1,'/home/home01/scdrw/Python/scripts')
+# Insert path (for comp-pc6076 vs ARC vs VIPER).
+#sys.path.insert(1,'/home/cserv1_a/soc_pg/scdrw/Documents/nbudocuments/PhD/SimNumerics/Python/postProcessingLib/scripts')      # Comp-pc6076
+sys.path.insert(1,'/home/home01/scdrw/Python/scripts')          # ARC
+#sys.path.insert(1,'/home/617122/Python/scripts')          # VIPER
+
 import compute_outline as co
 #import make_videos as mv
 
