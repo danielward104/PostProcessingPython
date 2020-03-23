@@ -129,7 +129,15 @@ def pseudoColour( filename, order, dimension, start_file, jump, final_timestep )
 
         Si = si.griddata(xzplane,Splane,(xi,zi),method='cubic')
 
-        plt.figure(figsize=(10,10))
+        x_size = maxx - minx
+        z_size = maxz - minz
+
+        fig_x = 10
+        fig_z = fig_x*(z_size/x_size)
+
+        print(fig_z)
+
+        plt.figure(figsize=(fig_x,fig_z))
         plt.pcolor(xi,zi,Si,cmap='RdBu_r')
         plt.savefig(os.path.join(''.join(['passive_scalar',repr(file_counter).zfill(5),'.png'])),bbox_inches='tight')
         plt.close('all') 
