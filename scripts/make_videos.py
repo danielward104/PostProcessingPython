@@ -13,9 +13,10 @@ import os
 #import statistics as st
 import scipy.interpolate as si
 
-# Import user-defined modules (comp-pc6076 vs ARC).
+# Import user-defined modules (comp-pc6076 vs ARC vs VIPER).
 #sys.path.insert(1,'/home/cserv1_a/soc_pg/scdrw/Documents/nbudocuments/PhD/SimNumerics/Python/postProcessingLib/')
 sys.path.insert(1,'/home/home01/scdrw/Python')
+#sys.path.insert(1,'/home/617122/Python/')
 import readingNek as rn
 import mappings as mp
 import plottingTools as pt

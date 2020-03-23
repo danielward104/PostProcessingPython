@@ -225,6 +225,9 @@ def umbrellaOutline( filename, order, dimension, start_file, jump, final_timeste
 
 def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, numelz, s_val, start_avg_at_time, image_OnOff ):
 
+    print(' ')
+    print('Have you checked that numelz is correct?')
+
     plot_onImages = 1
     fineness = 1
     plot_frequency = 10
@@ -244,6 +247,17 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
         print("Make sure calculation of file numbers is correct")
         print(range_vals)
 
+    # Checking save-directory exists.
+    folderexist = os.path.isdir("./Images_outline")
+
+    print(' ')
+    if folderexist:
+        print("The folder 'Images_outline' exists.")
+    else:
+        print("Creating the folder 'Images_outline'.")
+        cwd = os.getcwd()
+        os.mkdir(''.join([cwd,"/Images_outline"]))
+    print(' ')
 
     # Reading in mesh data.
     data,time,istep,header,elmap,u_i,v_i,w_i,t_i,s_i = rn.readnek(''.join([filename,'0.f00001']))
