@@ -229,6 +229,10 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
     fineness = 1
     plot_frequency = 10
 
+    if (plot_onImages == 1):
+        print('Producing images for verification.  Will increase simulation time.')
+        print(' ')
+
     top_data = []
     top_time = []
 
@@ -245,15 +249,15 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
         print(range_vals)
 
     # Checking save-directory exists.
-    folderexist = os.path.isdir("./Images_outline")
+    foldername = "images_outline"
+    folderexist = os.path.isdir(''.join(["./",foldername]))
 
-    print(' ')
     if folderexist:
-        print("The folder 'Images_outline' exists.")
+        print("The folder '",foldername,"' exists.")
     else:
-        print("Creating the folder 'Images_outline'.")
+        print("Creating the folder '",foldername,"'.")
         cwd = os.getcwd()
-        os.mkdir(''.join([cwd,"/Images_outline"]))
+        os.mkdir(''.join([cwd,"/",foldername]))
     print(' ')
 
     # Reading in mesh data.
@@ -301,6 +305,10 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
     file_counter = 0
     print_counter = 0
 
+    # Opening files for writing.
+    f = open('top_data.file','w')
+    g = open('top_time.file','w')
+
     for k in range_vals:
 
         file_num = int((k-1)/jump + 1)
@@ -336,10 +344,15 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
         top_data.append(maxPlumeHeight)
         top_time.append(time)
 
+        # Writing to file.
+        f.write(str(maxPlumeHeight))
+        f.write("\n")
+        g.write(str(time))
+        g.write("\n")
+
         if ( file_counter % plot_frequency == 0 ):
 
             if (plot_onImages == 1):
-
                 print_counter += 1
 
                 Xplane = np.array(X[coords1,coords2])
@@ -365,8 +378,7 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
                 plt.pcolor(xi,zi,Si,cmap='RdBu_r')
                 
                 plt.plot(np.linspace(-3,3,2),maxPlumeHeight*np.ones((2,1)),color='black')
-
-                plt.savefig(os.path.join(''.join(['heightTest',repr(file_counter).zfill(5),'.png'])),bbox_inches='tight')
+                plt.savefig(os.path.join(''.join(['./',foldername,'/heightTest',repr(print_counter).zfill(5),'.png'])),bbox_inches='tight')
                 plt.close('all') 
 
 
@@ -465,17 +477,21 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
 #### Commenting for new method ####
 ###################################
 
-    f = open('top_data.file','w')
-    for x in top_data:
-        f.write(str(x))
-        f.write("\n")
+    # Closing files.
     f.close()
+    g.close()
 
-    f = open('top_time.file','w')
-    for x in top_time:
-        f.write(str(x))
-        f.write("\n")
-    f.close()
+#    f = open('top_data.file','w')
+#    for x in top_data:
+#        f.write(str(x))
+#        f.write("\n")
+#    f.close()
+#
+#    f = open('top_time.file','w')
+#    for x in top_time:
+#        f.write(str(x))
+#        f.write("\n")
+#    f.close()
 
     for t in range(len((top_time))):
         if (top_time[t] > start_avg_at_time):
@@ -502,8 +518,7 @@ def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, 
     plt.xlabel('time',fontsize=12)
     plt.ylabel('height',fontsize=12)
 
-    plt.savefig(os.path.join(''.join(['./Images_outline/top_vs_time.png'])),bbox_inches='tight')
-
+    plt.savefig(os.path.join(''.join(['./',foldername,'/top_vs_time.png'])),bbox_inches='tight')
     plt.close('all')
 
     return

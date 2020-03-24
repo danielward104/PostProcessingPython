@@ -7,7 +7,7 @@ files = os.listdir(".")
 file_count = len([f for f in files if f[:20] == "plume_v1_production0"])
 print('Number of files is ',file_count,'.')
 # Number of files to skip each simulation.
-jump = 500
+jump = 50
 print('Skip every ',jump,' files.')
 # Computes number of calculations to perform.
 to_calculate = int(round(float(file_count)/float(jump),0))
@@ -17,6 +17,7 @@ print('Performing ',to_calculate,' calculations.')
 numelz = 34
 print(' ')
 print('Running with numelz = ',numelz,'.  Have you checked this is correct?')
+print(' ')
 
 sys.path.insert(1,'/home/home01/scdrw/Python/scripts')
 
@@ -44,8 +45,8 @@ def plumeOutline():
         jump,      # Jump
         file_count,      # Final timestep
         numelz,     # Number of elements in z-direction
-        0.01,   # Cutoff value for s
-        0,      # start averaging at this time
+        0.03,   # Cutoff value for s
+        0.5,      # start averaging at this time
         0      # Image on/off
         )
         return
