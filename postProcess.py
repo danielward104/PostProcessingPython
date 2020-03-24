@@ -19,7 +19,10 @@ print(' ')
 print('Running with numelz = ',numelz,'.  Have you checked this is correct?')
 print(' ')
 
-sys.path.insert(1,'/home/home01/scdrw/Python/scripts')
+# Insert path (for comp-pc6076 vs ARC vs VIPER).
+#sys.path.insert(1,'/home/cserv1_a/soc_pg/scdrw/Documents/nbudocuments/PhD/SimNumerics/Python/postProcessingLib/scripts')      # Comp-pc6076
+sys.path.insert(1,'/home/home01/scdrw/Python/scripts')          # ARC
+#sys.path.insert(1,'/home/617122/Python/scripts')          # VIPER
 
 # Chooses which postprocessing script to run.
 switch = 1
