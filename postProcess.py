@@ -7,7 +7,7 @@ files = os.listdir(".")
 file_count = len([f for f in files if f[:20] == "plume_v1_production0"])
 print('Number of files is ',file_count,'.')
 # Number of files to skip each simulation.
-jump = 100
+jump = 500
 print('Skip every ',jump,' files.')
 # Computes number of calculations to perform.
 to_calculate = int(round(float(file_count)/float(jump),0))
@@ -19,13 +19,12 @@ print(' ')
 print('Running with numelz = ',numelz,'.  Have you checked this is correct?')
 
 sys.path.insert(1,'/home/home01/scdrw/Python/scripts')
-#import compute_outline as co
-import make_videos as mv
 
 # Chooses which postprocessing script to run.
-switch = 2
+switch = 1
 
 def umbrellaOutline():
+        import compute_outline as co
         co.umbrellaOutline('plume_v1_production',
         8,      # Order 
         3,      # Dimension
@@ -37,6 +36,7 @@ def umbrellaOutline():
         return
 
 def plumeOutline():
+        import compute_outline as co
         co.plumeOutline('plume_v1_production',
         8,      # Order 
         3,      # Dimension
@@ -44,13 +44,14 @@ def plumeOutline():
         jump,      # Jump
         file_count,      # Final timestep
         numelz,     # Number of elements in z-direction
-        0.07,   # Cutoff value for s
+        0.01,   # Cutoff value for s
         0,      # start averaging at this time
         0      # Image on/off
         )
         return
 
 def makeVideo():
+        import make_videos as mv
         mv.pseudoColour('plume_v1_production',
         8,      # Order 
         3,      # Dimension
