@@ -7,22 +7,23 @@ files = os.listdir(".")
 file_count = len([f for f in files if f[:20] == "plume_v1_production0"])
 print('Number of files is ',file_count,'.')
 # Number of files to skip each simulation.
-jump = 500
+jump = 100
 print('Skip every ',jump,' files.')
 # Computes number of calculations to perform.
 to_calculate = int(round(float(file_count)/float(jump),0))
 print('Performing ',to_calculate,' calculations.')
 
-# Insert path (for comp-pc6076 vs ARC vs VIPER).
-#sys.path.insert(1,'/home/cserv1_a/soc_pg/scdrw/Documents/nbudocuments/PhD/SimNumerics/Python/postProcessingLib/scripts')      # Comp-pc6076
-sys.path.insert(1,'/home/home01/scdrw/Python/scripts')          # ARC
-#sys.path.insert(1,'/home/617122/Python/scripts')          # VIPER
+# Number of elements in the z-direction
+numelz = 34
+print(' ')
+print('Running with numelz = ',numelz,'.  Have you checked this is correct?')
 
-import compute_outline as co
-#import make_videos as mv
+sys.path.insert(1,'/home/home01/scdrw/Python/scripts')
+#import compute_outline as co
+import make_videos as mv
 
 # Chooses which postprocessing script to run.
-switch = 1
+switch = 2
 
 def umbrellaOutline():
         co.umbrellaOutline('plume_v1_production',
@@ -42,7 +43,7 @@ def plumeOutline():
         1,      # Start file
         jump,      # Jump
         file_count,      # Final timestep
-        34,     # Number of elements in z-direction
+        numelz,     # Number of elements in z-direction
         0.07,   # Cutoff value for s
         0,      # start averaging at this time
         0      # Image on/off
@@ -56,6 +57,7 @@ def makeVideo():
         1,      # Start file
         jump,      # Jump
         file_count,      # Final timestep
+        numelz,     # Number of elements in z-direction
         )
         return
 

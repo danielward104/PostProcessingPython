@@ -225,9 +225,6 @@ def umbrellaOutline( filename, order, dimension, start_file, jump, final_timeste
 
 def plumeOutline( filename, order, dimension, start_file, jump, final_timestep, numelz, s_val, start_avg_at_time, image_OnOff ):
 
-    print(' ')
-    print('Have you checked that numelz is correct?')
-
     plot_onImages = 1
     fineness = 1
     plot_frequency = 10

@@ -26,7 +26,7 @@ import generalTools as tools
 np.set_printoptions(threshold=sys.maxsize)
 
 
-def pseudoColour( filename, order, dimension, start_file, jump, final_timestep ):
+def pseudoColour( filename, order, dimension, start_file, jump, final_timestep, numelz ):
 
     fineness = 2
 
@@ -42,6 +42,18 @@ def pseudoColour( filename, order, dimension, start_file, jump, final_timestep )
         print("Make sure calculation of file numbers is correct")
         print(range_vals)
 
+    # Checking save-directory exists.
+    foldername = "images_ps"
+    folderexist = os.path.isdir(''.join(["./",foldername]))
+
+    print(' ')
+    if folderexist:
+        print("The folder '",foldername,"' exists.")
+    else:
+        print("Creating the folder '",foldername,"'.")
+        cwd = os.getcwd()
+        os.mkdir(''.join([cwd,"/",foldername]))
+    print(' ')
 
     # Reading in mesh data.
     data,time,istep,header,elmap,u_i,v_i,w_i,t_i,s_i = rn.readnek(''.join([filename,'0.f00001']))
@@ -83,7 +95,6 @@ def pseudoColour( filename, order, dimension, start_file, jump, final_timestep )
     minx, maxx = min(X[coords1,coords2]), max(X[coords1,coords2])
     minz, maxz = min(Z[coords1,coords2]), max(Z[coords1,coords2])
 
-    print(' ')
     print('Limits of domain (x,z):')
     print(minx,maxx,minz,maxz)
     print(' ')
@@ -115,7 +126,6 @@ def pseudoColour( filename, order, dimension, start_file, jump, final_timestep )
         Splane = np.array(S[coords1,coords2])
 
         # Interpolate to uniform grid for plotting.
-        numelz = 22
         zpoints = numelz*order
         npoints = len(Xplane)
         xpoints = npoints/zpoints
@@ -136,11 +146,9 @@ def pseudoColour( filename, order, dimension, start_file, jump, final_timestep )
         fig_x = 10
         fig_z = fig_x*(z_size/x_size)
 
-        print(fig_z)
-
         plt.figure(figsize=(fig_x,fig_z))
         plt.pcolor(xi,zi,Si,cmap='RdBu_r')
-        plt.savefig(os.path.join(''.join(['passive_scalar',repr(file_counter).zfill(5),'.png'])),bbox_inches='tight')
+        plt.savefig(os.path.join(''.join(['./',foldername,'/passive_scalar',repr(file_counter).zfill(5),'.png'])),bbox_inches='tight')
         plt.close('all') 
 
 
